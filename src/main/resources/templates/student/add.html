@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+
+    <div th:replace="fragments/commonui :: header"></div>
+
+<body>
+<div th:insert="fragments/commonui :: menu"></div>
+
+<div class="container">
+
+    <h2 th:if="${student.id == null}"> Add Student </h2>
+    <h2 th:unless="${student.id == null}">Edit Student </h2>
+
+    <form th:action="@{/add}" method="POST" th:object="${student}">
+        <div>
+            <input type="hidden" th:field="*{id}"/>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name </label>
+            <input type="text" class="form-control" th:field="*{name}" id="name" aria-describedby="emailHelp">
+            <!--            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email </label>
+            <input type="email" class="form-control" th:field="*{email}" id="email" aria-describedby="emailHelp">
+            <!--            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+        </div>
+
+        <div class="mb-3">
+            <label for="course" class="form-label">Courses </label>
+            <span class="mb-3 form-check"  th:each = "course:${courses}">
+                <input type="checkbox" th:field="*{courses}"
+                       class="form-check-input" id="course"
+
+                       th:value ="${course.key}"
+                       th:text ="${course.value}"
+                >
+             </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <!--            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+        </div>
+
+        <div>
+            <label class="form-label">Gender </label>
+            <span class="mb-3 form-check">
+                <input type="radio" th:field="*{gender}" class="form-check-input" id="male" value="male">
+                 <label class="form-check-label" for="male">Male</label>
+            </span>
+            <span class="mb-3 form-check">
+                <input type="radio" th:field="*{gender}" class="form-check-input" id="female" value="female">
+                <label class="form-check-label" for="female">Female</label>
+             </span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <th:block th:if ="${param.id != null}">
+            <a  th:href ="@{/delete(id=${student.id})}" class="btn btn-danger">Delete</a>
+        </th:block>
+        <th:block th:if ="${param.id == null}">
+            <a th:href ="@{/add}" class="btn btn-danger">Delete</a>
+
+        </th:block>
+    </form>
+    <div>
+        <span th:text="${message}"></span>
+
+    </div>
+</div>
+
+</body>
+</html>

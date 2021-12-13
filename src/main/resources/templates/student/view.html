@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+
+    <div th:replace="fragments/commonui :: header"></div>
+
+<body>
+<div th:insert="fragments/commonui :: menu"></div>
+
+<div class="container">
+
+    <div>
+       <h2> <a href="add" class="btn btn-primary">Add Student</a></h2>
+    </div>
+    <table class="table table-responsive-lg">
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Gender</td>
+            <td>Email</td>
+            <td>Courses</td>
+            <td colspan="3"></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student:${students}">
+            <td>[[${student.name}]]</td>
+            <td>[[${student.gender}]]</td>
+            <td>[[${student.email}]]</td>
+            <td>
+				<span th:each="course,iterStat : ${student.courses}">
+					<span th:text="${course.name}"/><th:block th:if="${!iterStat.last}">,</th:block>
+				</span>
+            </td>
+            <td>
+                <a th:href="@{/edit(id=${student.id})}" class="btn btn-primary btn-sm">Edit</a>
+            </td>
+            <td>
+                <a th:href="@{/addStudentCourse/{id}(id=${student.id})}"
+                   class="btn btn-success btn-sm">Enroll</a>
+            </td>
+            <td>
+                <a th:href="@{/view(id=${student.id})}" class="btn btn-info btn-sm">View</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <span th:text="${message}"></span>
+
+    </div>
+</div>
+</body>
+</html>

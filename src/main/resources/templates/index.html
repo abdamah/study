@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+
+    <div th:replace="fragments/commonui :: header"></div>
+
+<body>
+<div th:insert="fragments/commonui :: menu"></div>
+
+<div class="container">
+
+    <table  class="table table-responsive-lg">
+        <thead>
+        <tr>
+            <td>S.No</td>
+            <td>Name</td>
+            <td>Gender</td>
+            <td>Email</td>
+            <td>Courses</td>
+            <td>Fee</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student,index:${students}">
+            <td>[[${index.count}]]</td>
+            <td>[[${student.name}]]</td>
+            <td>[[${student.gender}]]</td>
+            <td>[[${student.email}]]</td>
+            <td>
+				<span th:each="course,iterStat : ${student.courses}">
+					<span th:text="${course.name}"/><th:block th:if="${!iterStat.last}"><span
+                        class="text-danger p-2">|</span></th:block>
+				</span>
+            </td>
+            <td >
+
+				<span th:each="course,iterStat : ${student.courses}">
+
+                <span class="text-primary d-sm-inline-flex mp-0">$</span>
+					<span th:text ="${course.fee}"></span>
+                  <th:block th:if="${!iterStat.last}"> <span class="text-danger p-2">|</span></th:block>
+				</span>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

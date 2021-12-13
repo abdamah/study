@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+
+    <div th:replace="fragments/commonui :: header"></div>
+
+<body>
+<div th:insert="fragments/commonui :: menu"></div>
+
+<div class="container">
+
+    <h2 th:if="${student.id == null}"> Add Student </h2>
+    <h2 th:unless="${student.id == null}">Edit Student </h2>
+
+    <form id="myAddForm" th:action="@{/{id}/courses(id=${student.id})}" method="GET"
+          enctype="multipart/form-data">
+
+
+        <table class="table ">
+            <tr>
+                <td>Name</td>
+                <td>Gender</td>
+                <td>Email</td>
+                <td>Courses</td>
+
+            </tr>
+            <tr>
+                <td>[[${student.name}]]</td>
+                <td>[[${student.gender}]]</td>
+                <td>[[${student.email}]]</td>
+                <td>
+				<span th:each="course,iterStat : ${student.courses}">
+					<span th:text="${course.name}"/><th:block th:if="${!iterStat.last}">,</th:block>
+				</span>
+                </td>
+
+            </tr>
+        </table>
+        <div class="mb-3">
+            <label for="courseId" class="form-label">Courses </label>
+            <span class="mb-3 form-check"  th:each = "course:${courses}">
+                <input type="checkbox" name ="courseId"
+
+                       class="form-check-input" id="courseId"
+
+                       th:value ="${course.key}"
+                       th:text ="${course.value}"
+                >
+             </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <!--            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+        </div>
+        <input type="submit" class="btn btn-success" value="Take Course"/>
+
+    </form>
+
+
+    <div>
+        <span th:text="${message}"></span>
+
+    </div>
+</div>
+
+</body>
+</html>

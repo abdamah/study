@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+
+    <div th:replace="fragments/commonui :: header"></div>
+
+<body>
+<div th:insert="fragments/commonui :: menu"></div>
+
+<div class="container">
+
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>Name</td>
+            <td>[[${student.name}]]</td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>[[${student.gender}]]</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>[[${student.email}]]</td>
+        </tr>
+        <tr>
+            <td>Course</td>
+            <td>
+				<span th:each="course,iterStat : ${student.courses}">
+					<span th:text="${course.name}"/><th:block th:if="${!iterStat.last}">,</th:block>
+				</span>
+            </td>
+        </tr>
+        <tr>
+        <td colspan="2">
+            <a th:href="@{/students/edit(id=${student.id})}" class="btn btn-primary">Edit</a>
+            <a th:href="@{/students/addStudentCourse/{id}(id=${student.id})}" class="btn btn-success">Take Course</a>
+        </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

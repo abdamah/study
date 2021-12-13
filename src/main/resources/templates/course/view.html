@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+
+    <div th:replace="fragments/commonui :: header"></div>
+
+<body>
+<div th:insert="fragments/commonui :: menu"></div>
+
+<div class="container">
+
+   <div>
+       <h2> <a th:href="@{courses/delete?id=}?'/courses/add':'/courses/add'" class="btn btn-primary">Add Course</a></h2>
+   </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Fee</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="course:${courses}">
+            <td>[[${course.name}]]</td>
+            <td>[[${course.description}]]</td>
+            <td><span class="text-primary ">$</span> [[${course.fee}]]</td>
+            <td>
+                <a th:href="@{/courses/edit(id=${course.id})}" class="btn btn-primary btn-sm">Edit</a>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">Total</td>
+            <td ><span class="text-primary">$</span>[[${totalFee}]]</td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${message!=null}">
+
+        <span th:text="${message}" class="text-success "></span>
+    </div>
+</div>
+</body>
+</html>
