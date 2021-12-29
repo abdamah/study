@@ -1,6 +1,5 @@
 package com.riigsoft.studybuddy.service;
 
-import com.riigsoft.studybuddy.entity.Course;
 import com.riigsoft.studybuddy.entity.Student;
 import com.riigsoft.studybuddy.exception.StudentNotFoundException;
 import com.riigsoft.studybuddy.repo.CourseRepository;
@@ -23,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Long saveStudent(Student student) {
 
-            return repo.save(student).getId();
+        return repo.save(student).getId();
     }
 
     @Override
@@ -55,4 +54,6 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> getAllStudents() {
         return repo.findAll();
     }
+
+
 }

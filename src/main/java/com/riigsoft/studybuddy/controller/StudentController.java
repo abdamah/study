@@ -32,8 +32,6 @@ public class StudentController {
         return "index";
     }
 
-
-    @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("student", new Student());
         commonUi(model);
@@ -101,7 +99,7 @@ public class StudentController {
             model.addAttribute("courses", courseService.getAllCourses());
             return "redirect:/students";
         }
-        
+
         return "redirect:/students";
     }
 
